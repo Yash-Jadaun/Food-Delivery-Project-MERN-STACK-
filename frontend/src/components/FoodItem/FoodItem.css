@@ -1,0 +1,87 @@
+/* Define the fadeIn animation */
+@keyframes fadeIn {
+    0% {
+        opacity: 0;
+    }
+    100% {
+        opacity: 1;
+    }
+}
+
+.food-item {
+    width: 100%; /* Full width of the container */
+    max-width: 300px; /* Optional: Set a max-width for better control */
+    margin: auto; /* Center the item horizontally */
+    border-radius: 15px; /* Rounded corners */
+    box-shadow: 0px 0px 10px #00000015; /* Light shadow */
+    transition: 0.3s; /* Smooth transition for hover effects */
+    animation: fadeIn 1s; /* Apply the fadeIn animation */
+}
+
+.food-item-image {
+    width: 100%; /* Make the image responsive */
+    max-width: 250px; /* Limit the maximum width */
+    border-radius: 15px; /* Rounded corners for the image */
+    display: block; /* Ensure the image behaves as a block element */
+    margin: 0 auto; /* Center the image horizontally */
+}
+
+.food-item-info{
+    padding: 20px;
+}
+
+.food-item-name-rating{
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    margin-bottom: 10px;
+}
+
+.food-item-name-rating p{
+ font-size: 20px;
+ font-weight: 500;
+}
+
+.food-item-name-rating img{
+    width: 70px;
+}
+
+.food-item-desc{
+    color: #676767;
+    font-size: 12px;
+}
+
+.food-item-price{
+    font-size: 20px;
+    font-weight: 500;
+    color: #FF6B00;
+    margin: 10px 0px;
+}
+
+.food-item-img-container{
+    position: relative;
+}
+
+.food-item-img-container .add{
+    width: 35px;
+    position: absolute;
+    bottom: 15px;
+    right: 15px;
+    cursor: pointer;
+    border-radius: 50%;
+}
+
+.food-item-counter{
+    position: absolute;
+    bottom: 15px;
+    right: 15px;
+    display: flex;
+    align-items: center;
+    gap: 10px;
+    border-radius: 50px;
+    background-color: white;
+}
+
+.food-item-counter img{
+  width: 30px;
+}

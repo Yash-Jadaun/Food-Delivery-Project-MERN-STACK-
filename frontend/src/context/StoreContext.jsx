@@ -5,6 +5,7 @@ export const StoreContext = createContext(null);
 
 const StoreContextProvider = (props) => {
   const [cartItems, setCartItems] = useState({});
+  const [user, setUser] = useState(null); // ✅ add this
 
   const addToCart = (itemId) => {
     setCartItems((prev) => ({
@@ -31,7 +32,6 @@ const StoreContextProvider = (props) => {
     for (const itemId in cartItems) {
       if (cartItems[itemId] > 0) {
         let itemInfo = food_list.find((product) => product._id === itemId);
-
         totalAmount += itemInfo.price * cartItems[itemId];
       }
     }
@@ -44,6 +44,8 @@ const StoreContextProvider = (props) => {
     addToCart,
     removeFromCart,
     getTotalCartAmount,
+    user, // ✅ provide user
+    setUser, // ✅ provide setter
   };
 
   return (

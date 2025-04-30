@@ -1,50 +1,31 @@
-const express = require('express');
-const router = express.Router();
-const User = require('../models/User');
-const bcrypt = require('bcryptjs');
-const jwt = require('jsonwebtoken');
+import express from 'express';
+import bcrypt from 'bcryptjs';   // Add bcryptjs for hashing
+import User from '../models/User.js';
 
-// Signup Route
+const router = express.Router();
+
 router.post('/signup', async (req, res) => {
   try {
     const { name, email, password } = req.body;
 
+    // ईमेल की अद्वितीयता की जाँच
     const existingUser = await User.findOne({ email });
-    if (existingUser) return res.status(400).json({ message: "User already exists" });
+    if (existingUser) {
+      return res.status(400).json({ error: 'Email already exists' });
+    }
 
-    const hashedPassword = await bcrypt.hash(password, 10);
+    // पासवर्ड को हैश करना
+    const salt = await bcrypt.genSalt(10); // Salt create करना
+    const hashedPassword = await bcrypt.hash(password, salt); // Password hash करना
 
-    const newUser = new User({ name, email, password: hashedPassword });
+    const newUser = new User({ name, email, password: hashedPassword }); // Use hashed password
     await newUser.save();
 
-    const token = jwt.sign({ id: newUser._id }, process.env.JWT_SECRET);
-
-    res.json({ token, message: "Account created" });
-  } catch (err) {
-    console.error("❌ Signup error:", err);
-    res.status(500).json({ message: "Something went wrong" });
+    res.status(201).json({ message: 'User registered successfully!' });
+  } catch (error) {
+    console.error('Signup error:', error);  // Add better error logging
+    res.status(500).json({ error: 'Signup failed' });
   }
 });
 
-
-// 🔐 Login Route (Add this below signup)
-router.post('/login', async (req, res) => {
-  try {
-    const { email, password } = req.body;
-
-    const user = await User.findOne({ email });
-    if (!user) return res.status(400).json({ message: "User not found" });
-
-    const isPasswordCorrect = await bcrypt.compare(password, user.password);
-    if (!isPasswordCorrect) return res.status(400).json({ message: "Invalid credentials" });
-
-    const token = jwt.sign({ id: user._id }, process.env.JWT_SECRET);
-
-    res.json({ token, message: "Logged in successfully" });
-  } catch (err) {
-    console.error("❌ Login error:", err);
-    res.status(500).json({ message: "Something went wrong" });
-  }
-});
-
-module.exports = router;
+export default router;

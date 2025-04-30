@@ -1,17 +1,15 @@
-import React, { useContext, useState } from 'react';
+import React, { useState } from 'react';
 import './Navbar.css';
-import { assets } from '../../assets/assets';
 import { Link } from 'react-router-dom';
-import { StoreContext } from '../../context/StoreContext';
+import { assets } from '../../assets/assets';
 
-const Navbar = ({ setShowLogin, userName, setUserName }) => {
+const Navbar = ({ setShowSignup, userName, setUserName }) => {
   const [menu, setMenu] = useState('menu');
-  const { getTotalCartAmount } = useContext(StoreContext);
 
   const handleLogout = () => {
     localStorage.removeItem('token');
     localStorage.removeItem('name');
-    setUserName(null); // Update App.js state to re-render and remove the user's name
+    setUserName(null); // Clear the username from the state
   };
 
   return (
@@ -55,9 +53,9 @@ const Navbar = ({ setShowLogin, userName, setUserName }) => {
           <Link to="/cart">
             <img src={assets.basket_icon} alt="cart" />
           </Link>
-          <div className={getTotalCartAmount() === 0 ? '' : 'dot'}></div>
         </div>
 
+        {/* Conditionally render the "Sign Up" button or the user's name */}
         {userName ? (
           <div className="navbar-user">
             <span className="navbar-welcome">👋 {userName}</span>
@@ -66,8 +64,8 @@ const Navbar = ({ setShowLogin, userName, setUserName }) => {
             </button>
           </div>
         ) : (
-          <button className="sign-in-btn" onClick={() => setShowLogin(true)}>
-            Sign In
+          <button className="sign-in-btn" onClick={() => setShowSignup(true)}>
+            Sign Up
           </button>
         )}
       </div>

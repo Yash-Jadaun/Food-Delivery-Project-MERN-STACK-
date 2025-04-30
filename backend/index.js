@@ -1,18 +1,23 @@
-const express = require('express');
-require('dotenv').config();
-const connectDB = require('./db/connect');
-const cors = require('cors');
+import express from 'express';
+import mongoose from 'mongoose';
+import cors from 'cors';
+import auth from './routes/auth.js'
+import User from './models/User.js';
 
 const app = express();
-const PORT = process.env.PORT || 5000;
+const PORT = 5000;
 
-connectDB();
-
+// Middleware
 app.use(cors());
 app.use(express.json());
 
-app.use('/api/auth', require('./routes/auth')); // <-- ✅ mount auth routes
+// Routes
+app.use('/api/auth', auth); // POST requests go to /signup
 
-app.get('/', (req, res) => res.send('🌟 API is running...'));
-
-app.listen(PORT, () => console.log(`🚀 Server running on port ${PORT}`));
+// MongoDB connection
+mongoose.connect('mongodb+srv://yashjadaun2711:AQlsYCkazgIk2JTj@userdetails.qzwedug.mongodb.net/?retryWrites=true&w=majority')
+  .then(() => {
+    console.log('✅ MongoDB connected');
+    app.listen(PORT, () => console.log(`🚀 Server running at http://localhost:${PORT}`));
+  })
+  .catch(err => console.error('❌ MongoDB connection error:', err));

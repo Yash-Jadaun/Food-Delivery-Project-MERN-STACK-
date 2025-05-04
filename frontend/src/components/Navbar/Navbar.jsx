@@ -1,15 +1,22 @@
-import React, { useState } from 'react';
+
+import React, { useState, useContext } from 'react';
 import './Navbar.css';
 import { Link } from 'react-router-dom';
 import { assets } from '../../assets/assets';
+import { StoreContext } from '../../context/StoreContext';
 
 const Navbar = ({ setShowSignup, userName, setUserName }) => {
   const [menu, setMenu] = useState('menu');
+  const { cartItems } = useContext(StoreContext);
+
+
+  // Count total cart items
+  const cartItemCount = Object.values(cartItems).reduce((acc, curr) => acc + curr, 0);
 
   const handleLogout = () => {
-    localStorage.removeItem('token');
-    localStorage.removeItem('name');
-    setUserName(null); // Clear the username from the state
+    setUserName('');
+    localStorage.removeItem('auth-token');
+    alert('You have been logged out!');
   };
 
   return (
@@ -47,15 +54,17 @@ const Navbar = ({ setShowSignup, userName, setUserName }) => {
           Contact Us
         </a>
       </ul>
+
       <div className="navbar-right">
         <img src={assets.search_icon} alt="search" />
+
         <div className="navbar-search-icon">
-          <Link to="/cart">
+          <Link to="/cart" className="cart-link">
             <img src={assets.basket_icon} alt="cart" />
+            {cartItemCount > 0 && <span className="cart-count">{cartItemCount}</span>}
           </Link>
         </div>
 
-        {/* Conditionally render the "Sign Up" button or the user's name */}
         {userName ? (
           <div className="navbar-user">
             <span className="navbar-welcome">👋 {userName}</span>

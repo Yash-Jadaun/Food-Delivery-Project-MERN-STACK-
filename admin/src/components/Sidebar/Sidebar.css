@@ -1,0 +1,89 @@
+/* Sidebar wrapper */
+.sidebar {
+    width: 18%; /* Sidebar width */
+    min-height: 100vh; /* Full viewport height */
+    border: 1.5px solid #a9a9a9;
+    border-top: 0; /* Remove top border */
+    position: fixed; /* Fixed position to the left */
+    top: 0;
+    left: 0;
+    background-color: #ffffff; /* White background */
+    box-shadow: 2px 0px 8px rgba(0, 0, 0, 0.1); /* Optional shadow for depth */
+    display: flex;
+    flex-direction: column;
+    padding-top: 120px; /* Increased padding from top to push items further down */
+    padding-bottom: 30px; /* Padding for the bottom */
+    justify-content: flex-start; /* Align items at the top */
+    height: 100%; /* Full height */
+    overflow-y: auto; /* Ensure scroll if the sidebar overflows */
+}
+
+/* Sidebar options container */
+.sidebar-options {
+    display: flex;
+    flex-direction: column;
+    gap: 20px; /* Space between options */
+    padding-left: 20px; /* Padding from left for alignment */
+    padding-right: 10px; /* Padding for right alignment */
+    justify-content: flex-start; /* Keep items starting from top */
+    flex-grow: 1; /* Allow the container to grow and take up available space */
+}
+
+/* Individual sidebar option */
+.sidebar-option {
+    display: flex;
+    align-items: center;
+    gap: 12px; /* Space between icon and text */
+    padding: 12px 15px; /* Padding inside each option */
+    border: 1px solid #a9a9a9; /* Border for the option */
+    border-right: 0; /* Remove right border */
+    border-radius: 3px 0 0 3px; /* Rounded corners on the left */
+    cursor: pointer; /* Pointer cursor on hover */
+    transition: background-color 0.3s ease; /* Smooth background transition */
+}
+
+/* Hover effect for sidebar options */
+.sidebar-option:hover {
+    background-color: #f2f2f2; /* Light background color on hover */
+}
+
+/* Sidebar option icons */
+.sidebar-option img {
+    width: 24px;
+    height: 24px;
+    object-fit: contain;
+}
+
+/* Sidebar option text */
+.sidebar-option p {
+    font-size: 16px;
+    font-weight: 500;
+    margin: 0; /* Remove default margin */
+    color: #333; /* Dark text color */
+}
+
+/* Optional: Add responsive design to adjust for mobile screens */
+@media (max-width: 768px) {
+    .sidebar {
+        width: 25%; /* Adjust sidebar width on smaller screens */
+    }
+
+    .sidebar-options {
+        padding-left: 10px;
+        padding-right: 10px;
+    }
+
+    .sidebar-option p {
+        font-size: 14px; /* Smaller text for better visibility */
+    }
+
+    .sidebar-option img {
+        width: 20px; /* Adjust icon size for smaller screens */
+        height: 20px;
+    }
+}
+
+.sidebar-option-active{
+    background-color: #fff0ed;
+    border-color: tomato;
+}

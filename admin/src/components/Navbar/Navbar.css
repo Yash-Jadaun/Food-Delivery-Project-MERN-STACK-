@@ -1,0 +1,73 @@
+/* Navbar.css */
+
+.navbar {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding: 14px 30px;
+    background: linear-gradient(90deg, #fdfbfb, #ebedee);
+    box-shadow: 0 4px 12px rgba(0, 0, 0, 0.08);
+    position: sticky;
+    top: 0;
+    z-index: 1000;
+  }
+  
+  .logo-section {
+    display: flex;
+    flex-direction: column;
+    align-items: flex-start;
+  }
+  
+  .logo {
+    height: 45px;
+    cursor: pointer;
+    transition: transform 0.2s ease-in-out;
+  }
+  
+  .logo:hover {
+    transform: scale(1.05);
+  }
+  
+  .admin-label {
+    font-size: 14px;
+    color: #555;
+    margin-top: 4px;
+    font-weight: 500;
+  }
+  
+  .profile {
+    height: 44px;
+    width: 44px;
+    border-radius: 50%;
+    aspect-ratio: 1 / 1;
+    object-fit: cover;
+    border: 2px solid #ddd;
+    cursor: pointer;
+    transition: transform 0.2s ease, box-shadow 0.2s ease;
+  }
+  
+  .profile:hover {
+    transform: scale(1.1);
+    box-shadow: 0 0 10px rgba(0, 0, 0, 0.15);
+  }
+  
+  /* Responsive */
+  @media (max-width: 600px) {
+    .navbar {
+      padding: 10px 20px;
+    }
+  
+    .logo {
+      height: 38px;
+    }
+  
+    .profile {
+      height: 38px;
+      width: 38px;
+    }
+  
+    .admin-label {
+      font-size: 12px;
+    }
+  }
+  

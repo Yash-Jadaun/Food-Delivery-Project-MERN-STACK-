@@ -3,34 +3,46 @@
 @tailwind components;
 @tailwind utilities;
 
-/* @import "tailwindcss"; */
-*{
-  padding:0;
+/* Reset default browser styles */
+* {
+  padding: 0;
   margin: 0;
-  box-sizing:border-box;
-  font-family: Outfit;
+  box-sizing: border-box;
+  font-family: 'Outfit', sans-serif;
   scroll-behavior: smooth;
 }
 
-body{
+html, body {
+  width: 100%;
   min-height: 100vh;
+  overflow-x: hidden;
+  background-color: #fff;
 }
 
-a{
+a {
   text-decoration: none;
-  color:inherit;
+  color: inherit;
 }
 
-.app{
-  width: 80%;
-  margin: auto;
+.app {
+  max-width: 1200px;
+  margin: 0 auto;
+  padding: 0 20px;
+  width: 100%;
 }
 
-@keyframes fadeIn{
-  0%{
+/* Optional: Ensure images don’t overflow */
+img {
+  max-width: 100%;
+  display: block;
+}
+
+/* Animation */
+@keyframes fadeIn {
+  0% {
     opacity: 0;
   }
-  100%{
+  100% {
     opacity: 1;
   }
 }

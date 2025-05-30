@@ -1,32 +1,50 @@
-import React, { useState} from "react";
-import Navbar from "./components/Navbar/Navbar";
-import { BrowserRouter, Route, Routes } from "react-router-dom";
-import Home from "./pages/Home/Home";
-import Cart from "./pages/Cart/Cart";
-import PlaceOrder from "./pages/PlaceOrder/PlaceOrder";
-import Footer from "./components/Footer/Footer";
-
-
-import "./index.css";
-import "bootstrap/dist/css/bootstrap.min.css";
-import LoginPopup from "./components/LoginPopup/LoginPopup";
+import React, { useState } from 'react';
+import { BrowserRouter, Routes, Route } from 'react-router-dom';
+import Navbar from './components/Navbar/Navbar';
+import Home from './pages/Home/Home';
+import Cart from './pages/Cart/Cart';
+import PlaceOrder from './pages/PlaceOrder/PlaceOrder';
+import Footer from './components/Footer/Footer';
+import Signup from './components/Authentication/Signup';
+import Signin from './components/Authentication/Signin';  // import signin
 
 const App = () => {
-  
-const [showLogin,setShowLogin] = useState(false);
-  
+  const [showSignUp, setShowSignUp] = useState(false);
+  const [showSignIn, setShowSignIn] = useState(false);
+  const [user, setUser] = useState(null); // Track logged-in user
+
+  const handleSignUpOpen = () => {
+    setShowSignUp(true);
+    setShowSignIn(false);
+  };
+
+  const handleSignInOpen = () => {
+    setShowSignIn(true);
+    setShowSignUp(false);
+  };
+
+  const handleSignUpClose = () => setShowSignUp(false);
+  const handleSignInClose = () => setShowSignIn(false);
+
+  // When user logs in (or signs up), set user state & close modals
+  const handleUserLogin = (userData) => {
+    setUser(userData);  // { name, email }
+    setShowSignIn(false);
+    setShowSignUp(false);
+  };
 
   return (
     <>
- {showLogin?<LoginPopup  setShowLogin={setShowLogin}/>:<></>}
       <div className="app">
-        <Navbar setShowSignup={setShowLogin}
-        
-        />
+        <Navbar showSignUp={handleSignUpOpen} showSignIn={handleSignInOpen} user={user} />
+
+        {showSignUp && <Signup onClose={handleSignUpClose} onSuccess={handleUserLogin} />}
+        {showSignIn && <Signin onClose={handleSignInClose} onSwitchToSignup={handleSignUpOpen} onSuccess={handleUserLogin} />}
+
         <Routes>
-          <Route path="/" element={<Home />} />
-          <Route path="/cart" element={<Cart />} />
-          <Route path="/order" element={<PlaceOrder />} />
+          <Route path='/' element={<Home />} />
+          <Route path='/cart' element={<Cart />} />
+          <Route path='/order' element={<PlaceOrder />} />
         </Routes>
       </div>
       <Footer />

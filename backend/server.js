@@ -3,7 +3,10 @@ import cors from "cors";
 import dotenv from "dotenv";
 import { connectDB } from "./config/db.js";
 import foodRouter from "./routes/foodRoute.js";
+import router from "./routes/paymentRoutes.js";
 import userRouter from "./routes/userRoute.js";
+import paymentRoutes from './routes/paymentRoutes.js'; 
+
 
 // Load env variables
 dotenv.config();
@@ -20,6 +23,8 @@ app.use("/images", express.static("uploads"));
 // Routes
 app.use("/api/food", foodRouter);
 app.use("/api/user", userRouter);
+app.use('/api/payment', paymentRoutes);
+
 
 // Connect DB
 connectDB();

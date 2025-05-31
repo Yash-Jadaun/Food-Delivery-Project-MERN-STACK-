@@ -7,11 +7,20 @@ import PlaceOrder from './pages/PlaceOrder/PlaceOrder';
 import Footer from './components/Footer/Footer';
 import Signup from './components/Authentication/Signup';
 import Signin from './components/Authentication/Signin';  // import signin
+import PaymentButton from './components/PaymentButton';
+
+
+
 
 const App = () => {
   const [showSignUp, setShowSignUp] = useState(false);
   const [showSignIn, setShowSignIn] = useState(false);
   const [user, setUser] = useState(null); // Track logged-in user
+  const[showPaymentButton,setShowPaymentButton]=useState(false)
+
+  const handlePaymentButton=()=>{
+    setShowPaymentButton(true);
+  }
 
   const handleSignUpOpen = () => {
     setShowSignUp(true);
@@ -36,6 +45,7 @@ const App = () => {
   return (
     <>
       <div className="app">
+        
         <Navbar showSignUp={handleSignUpOpen} showSignIn={handleSignInOpen} user={user} />
 
         {showSignUp && <Signup onClose={handleSignUpClose} onSuccess={handleUserLogin} />}
@@ -44,7 +54,16 @@ const App = () => {
         <Routes>
           <Route path='/' element={<Home />} />
           <Route path='/cart' element={<Cart />} />
-          <Route path='/order' element={<PlaceOrder />} />
+        <Route
+  path="/order"
+  element={
+    <PlaceOrder
+      showPaymentButton={showPaymentButton}
+      handlePaymentButton={handlePaymentButton}
+    />
+  }
+/>
+
         </Routes>
       </div>
       <Footer />

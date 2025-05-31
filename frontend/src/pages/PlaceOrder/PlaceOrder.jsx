@@ -1,8 +1,9 @@
 import React, { useContext } from 'react';
 import './PlaceOrder.css';
-import { StoreContext } from '../../context/StoreContext'; // ✅ Import added
+import { StoreContext } from '../../context/StoreContext';
+import PaymentButton from '../../components/PaymentButton'; // Add if not already
 
-const PlaceOrder = () => {
+const PlaceOrder = ({ showPaymentButton, handlePaymentButton }) => {
   const { getTotalCartAmount } = useContext(StoreContext);
 
   return (
@@ -35,7 +36,7 @@ const PlaceOrder = () => {
         <div className="cart-total">
           <h2>Cart Totals</h2>
           <div>
-          <div className="cart-total-details">
+            <div className="cart-total-details">
               <p>Subtotal</p>
               <p>₹{getTotalCartAmount()}</p>
             </div>
@@ -50,7 +51,12 @@ const PlaceOrder = () => {
               <b>₹{getTotalCartAmount() + 2}</b>
             </div>
           </div>
-          <button type="submit">PROCEED TO PAYMENT</button>
+
+          <button type="button" onClick={handlePaymentButton}>
+            PROCEED TO PAYMENT
+          </button>
+
+          {showPaymentButton && <PaymentButton amount={getTotalCartAmount() + 2} />}
         </div>
       </div>
     </form>
